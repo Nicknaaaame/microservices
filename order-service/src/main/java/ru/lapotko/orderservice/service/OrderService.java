@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Transactional
 public class OrderService {
-    private static final String INVENTORY_SERVICE_URI = "http://localhost:8082/api/inventory";
+    private static final String INVENTORY_SERVICE_URI = "http://inventory-service/api/inventory";
     private final OrderRepository orderRepository;
     private final WebClient webClient;
 
