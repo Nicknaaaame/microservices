@@ -4,15 +4,15 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 import ru.lapotko.inventoryservice.dto.InventoryResponse;
+import ru.lapotko.orderservice.exception.OrderApiException;
 import ru.lapotko.orderservice.exception.OrderHasNoSkuCodesInStockException;
 import ru.lapotko.orderservice.model.Order;
 import ru.lapotko.orderservice.model.OrderLineItems;
 import ru.lapotko.orderservice.repository.OrderRepository;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,7 +26,7 @@ public class OrderService {
     public String placeOrder(Order order) {
         order.setOrderNumber(UUID.randomUUID().toString());
 
-        List<InventoryResponse> response = Arrays.asList(webClient.get()
+        InventoryResponse[] body = webClient.get()
                 .uri(INVENTORY_SERVICE_URI, uriBuilder ->
                         uriBuilder.queryParam("skuCode",
                                         order.getOrderLineItemsList().stream()
@@ -35,7 +35,12 @@ public class OrderService {
                                 .build())
                 .retrieve()
                 .bodyToMono(InventoryResponse[].class)
-                .block());
+                .block();
+
+        if (Objects.isNull(body))
+            throw new OrderApiException("Inventory service webClient returns null error");
+
+        List<InventoryResponse> response = Arrays.asList(body);
 
         List<String> notInStockCodes = response.stream()
                 .filter(inventory -> !inventory.isInStock()).map(InventoryResponse::getSkuCode)
