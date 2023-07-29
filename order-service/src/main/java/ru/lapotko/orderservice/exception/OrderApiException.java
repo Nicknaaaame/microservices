@@ -1,6 +1,5 @@
 package ru.lapotko.orderservice.exception;
 
-import lombok.RequiredArgsConstructor;
 import ru.lapotko.orderservice.model.Order;
 
 public class OrderApiException extends RuntimeException {
