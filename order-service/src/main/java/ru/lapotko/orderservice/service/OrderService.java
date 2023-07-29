@@ -2,6 +2,7 @@ package ru.lapotko.orderservice.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import ru.lapotko.orderservice.dto.InventoryResponse;
@@ -27,7 +28,6 @@ public class OrderService {
 
     public String placeOrder(Order order) {
         order.setOrderNumber(UUID.randomUUID().toString());
-
         InventoryResponse[] body = webClient.get()
                 .uri(INVENTORY_SERVICE_URI, uriBuilder ->
                         uriBuilder.queryParam("skuCode",
