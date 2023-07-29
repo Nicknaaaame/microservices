@@ -3,6 +3,12 @@ package ru.lapotko.inventoryservice.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.ReactiveSecurityContextHolder;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import ru.lapotko.inventoryservice.dto.InventoryResponse;
 import ru.lapotko.inventoryservice.service.InventoryService;
@@ -14,13 +20,18 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class InventoryController {
-
     private final InventoryService inventoryService;
 
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public List<InventoryResponse> isInStock(@RequestParam List<String> skuCode) {
+    @PreAuthorize("hasAuthority('INVENTORY_USER')")
+    public ResponseEntity<List<InventoryResponse>> isInStock(@RequestParam List<String> skuCode) {
         log.info("Received inventory check request for skuCode: {}", skuCode);
-        return inventoryService.isInStock(skuCode);
+        return ResponseEntity.ok(inventoryService.isInStock(skuCode));
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<String> getMe() {
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return ResponseEntity.ok(authentication.getName());
     }
 }
