@@ -21,7 +21,7 @@ public class InventoryController {
     private final InventoryService inventoryService;
 
     @GetMapping
-    @PreAuthorize("hasAuthority('INVENTORY_USER')")
+    @PreAuthorize("hasAuthority(@Roles.INVENTORY_USER)")
     public ResponseEntity<List<InventoryResponse>> isInStock(@RequestParam List<String> skuCode) {
         log.info("Received inventory check request for skuCode: {}", skuCode);
         return ResponseEntity.ok(inventoryService.isInStock(skuCode));

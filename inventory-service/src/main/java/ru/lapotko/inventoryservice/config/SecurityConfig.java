@@ -11,7 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.web.SecurityFilterChain;
-import ru.lapotko.shared.jwt.KeyCloakJwtGrantedAuthoritiesConverter;
+import ru.lapotko.shared.security.jwt.KeyCloakJwtGrantedAuthoritiesConverter;
 
 @Configuration
 @EnableMethodSecurity

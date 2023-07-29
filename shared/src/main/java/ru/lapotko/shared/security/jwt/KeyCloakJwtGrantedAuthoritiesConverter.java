@@ -1,4 +1,4 @@
-package ru.lapotko.shared.jwt;
+package ru.lapotko.shared.security.jwt;
 
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;

@@ -1,0 +1,8 @@
+package ru.lapotko.shared.security;
+
+import org.springframework.stereotype.Component;
+
+@Component("Roles")
+public class RoleContainer {
+    public final String INVENTORY_USER = "INVENTORY_USER";
+}
