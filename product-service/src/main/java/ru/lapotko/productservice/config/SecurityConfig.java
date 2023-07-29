@@ -1,4 +1,4 @@
-package ru.lapotko.inventoryservice.config;
+package ru.lapotko.productservice.config;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
