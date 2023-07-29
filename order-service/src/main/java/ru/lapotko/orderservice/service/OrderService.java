@@ -4,7 +4,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import ru.lapotko.inventoryservice.dto.InventoryResponse;
+import ru.lapotko.orderservice.dto.InventoryResponse;
 import ru.lapotko.orderservice.exception.OrderApiException;
 import ru.lapotko.orderservice.exception.OrderHasNoSkuCodesInStockException;
 import ru.lapotko.orderservice.model.Order;

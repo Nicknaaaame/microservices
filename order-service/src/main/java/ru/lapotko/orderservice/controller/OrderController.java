@@ -2,6 +2,8 @@ package ru.lapotko.orderservice.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.lapotko.orderservice.dto.OrderRequest;
 import ru.lapotko.orderservice.dto.OrderResponse;
@@ -19,15 +21,17 @@ public class OrderController {
     private final OrderMapper orderMapper = new OrderMapper();
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public String placeOrder(@RequestBody OrderRequest orderRequest) {
+    @PreAuthorize("hasAuthority(@Roles.ORDER_USER)")
+    public ResponseEntity<Void> placeOrder(@RequestBody OrderRequest orderRequest) {
         orderService.placeOrder(orderMapper.map(orderRequest));
-        return "ok";
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public List<OrderResponse> getOrders() {
-        return orderService.getOrders().stream().map(orderMapper::map).collect(Collectors.toList());
+    @PreAuthorize("hasAuthority(@Roles.ORDER_USER)")
+    public ResponseEntity<List<OrderResponse>> getOrders() {
+        return ResponseEntity.ok(orderService.getOrders().stream()
+                .map(orderMapper::map)
+                .collect(Collectors.toList()));
     }
 }
