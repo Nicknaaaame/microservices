@@ -8,9 +8,9 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>discoveryserver</artifactId>
-    <name>discoveryserver</name>
-    <description>discoveryserver</description>
+    <artifactId>discovery-server</artifactId>
+    <name>discovery-server</name>
+    <description>discovery-server</description>
 
     <properties>
         <java.version>17</java.version>
