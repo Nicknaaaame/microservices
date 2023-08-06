@@ -1,27 +1,17 @@
 app:
   config:
-    user: admin
-    password: admin
+    host: localhost
+    port: 8888
+    user: cfg_admin
+    pass: cfg_admin
 
-eureka:
-  instance:
-    hostname: localhost
-  client:
-    fetch-registry: 'false'
-    register-with-eureka: 'false'
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
-
-server:
-  port: '8761'
-
----
 spring:
   config:
-    activate:
-      on-profile: prod
-
-app:
-  config:
-    user: admin
-    password: admin123
+    import: configserver:http://${app.config.host}:${app.config.port}
+  application:
+    name: discovery-server
+  cloud:
+    config:
+      fail-fast: true
+      username: ${app.config.user}
+      password: ${app.config.pass}

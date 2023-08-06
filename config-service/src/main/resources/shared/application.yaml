@@ -1,0 +1,8 @@
+app:
+  eureka:
+    host: localhost
+    port: 8761
+    user: eureka_admin
+    pass: eureka_admin
+
+

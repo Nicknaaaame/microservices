@@ -1,0 +1,15 @@
+spring:
+  security:
+    user:
+      name: ${app.eureka.user}
+      password: ${app.eureka.pass}
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+
+server:
+  port: 8761
