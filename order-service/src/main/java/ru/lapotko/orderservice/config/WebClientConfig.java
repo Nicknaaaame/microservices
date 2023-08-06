@@ -26,7 +26,7 @@ public class WebClientConfig {
     private ExchangeFilterFunction setAuthorization() {
         return ExchangeFilterFunction.ofRequestProcessor((clientRequest) -> {
             ClientRequest authorizedRequest = ClientRequest.from(clientRequest)
-                    .header("AUTHORIZATION",JwtUtil.getAuthorizationHeader())
+                    .header("AUTHORIZATION", JwtUtil.getAuthorizationHeader())
                     .build();
             return Mono.just(authorizedRequest);
         });
