@@ -2,6 +2,11 @@ app:
   config:
     user: cfg_admin
     pass: cfg_admin
+  eureka:
+    host: localhost
+    port: 8761
+    user: eureka_admin
+    pass: eureka_admin
 
 server:
   port: 8888
@@ -24,4 +29,4 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://eureka_admin:eureka_admin@localhost:8761/eureka/
+      defaultZone: http://${app.eureka.user}:${app.eureka.pass}@${app.eureka.host}:${app.eureka.port}/eureka/

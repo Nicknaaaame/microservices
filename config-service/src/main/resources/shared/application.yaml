@@ -5,4 +5,11 @@ app:
     user: eureka_admin
     pass: eureka_admin
 
-
+eureka:
+  instance:
+    hostname: ${app.eureka.host}
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: http://${app.eureka.user}:${app.eureka.pass}@${app.eureka.host}:${app.eureka.port}/eureka/
