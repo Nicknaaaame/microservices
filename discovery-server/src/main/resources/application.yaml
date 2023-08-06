@@ -1,0 +1,27 @@
+app:
+  config:
+    user: admin
+    password: admin
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    fetch-registry: 'false'
+    register-with-eureka: 'false'
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+server:
+  port: '8761'
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+app:
+  config:
+    user: admin
+    password: admin123
