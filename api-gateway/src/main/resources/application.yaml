@@ -1,0 +1,18 @@
+app:
+  config:
+    host: localhost
+    port: 8888
+    user: cfg_admin
+    pass: cfg_admin
+
+spring:
+  config:
+    import: configserver:http://${app.config.host}:${app.config.port}
+  application:
+    name: api-gateway
+  cloud:
+    config:
+      fail-fast: true
+      username: ${app.config.user}
+      password: ${app.config.pass}
+
