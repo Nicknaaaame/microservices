@@ -1,0 +1,15 @@
+app:
+  postgres:
+    host: localhost
+    port: 5432
+    schema: postgres
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${app.postgres.host}:${app.postgres.port}/${app.postgres.schema}
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: update
