@@ -4,6 +4,17 @@ app:
     port: 8761
     user: eureka_admin
     pass: eureka_admin
+  keycloak:
+    host: localhost
+    port: 8090
+    realm: microservices
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://${app.keycloak.host}:${app.keycloak.port}/realms/${app.keycloak.realm}
 
 eureka:
   instance:
@@ -13,3 +24,6 @@ eureka:
     register-with-eureka: true
     serviceUrl:
       defaultZone: http://${app.eureka.user}:${app.eureka.pass}@${app.eureka.host}:${app.eureka.port}/eureka/
+
+server:
+  port: 0
