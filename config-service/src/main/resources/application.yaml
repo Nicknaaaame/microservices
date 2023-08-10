@@ -30,3 +30,19 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://${app.eureka.user}:${app.eureka.pass}@${app.eureka.host}:${app.eureka.port}/eureka/
+
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+
+app:
+  config:
+    user: ${CONFIG_USER}
+    pass: ${CONFIG_PASS}
+  eureka:
+    host: eureka
+    port: 8761
+    user: ${EUREKA_USER}
+    pass: ${EUREKA_PASS}

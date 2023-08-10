@@ -27,3 +27,20 @@ eureka:
 
 server:
   port: 0
+
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+
+app:
+  eureka:
+    host: eureka
+    port: 8761
+    user: ${EUREKA_USER}
+    pass: ${EUREKA_PASS}
+  keycloak:
+    host: keycloak
+    port: 8090
+    realm: microservices

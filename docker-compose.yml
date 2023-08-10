@@ -1,0 +1,29 @@
+version: '3.7'
+services:
+  config-service:
+    container_name: config-service
+    image: lapotkod/config-service:0.0.1
+    restart: on-failure
+    environment:
+      SPRING_PROFILES_ACTIVE: docker,native
+      CONFIG_USER: ${CONFIG_USER}
+      CONFIG_PASS: ${CONFIG_PASS}
+      EUREKA_USER: ${EUREKA_USER}
+      EUREKA_PASS: ${EUREKA_PASS}
+    ports:
+      - 8888:8888
+
+  eureka-service:
+    container_name: eureka-service
+    image: lapotkod/eureka-service:0.0.1
+    restart: on-failure
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      CONFIG_USER: ${CONFIG_USER}
+      CONFIG_PASS: ${CONFIG_PASS}
+      EUREKA_USER: ${EUREKA_USER}
+      EUREKA_PASS: ${EUREKA_PASS}
+    ports:
+      - 8761:8761
+    depends_on:
+      - config-service
