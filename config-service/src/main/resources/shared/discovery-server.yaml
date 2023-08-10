@@ -1,8 +1,8 @@
 spring:
   security:
     user:
-      name: ${app.eureka.user}
-      password: ${app.eureka.pass}
+      name: ${app.discovery.user}
+      password: ${app.discovery.pass}
 
 eureka:
   instance:

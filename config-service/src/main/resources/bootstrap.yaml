@@ -1,32 +1,35 @@
 app:
+  config:
+    user: cfg_admin
+    pass: cfg_admin
   discovery:
     host: localhost
     port: 8761
     user: eureka_admin
     pass: eureka_admin
-  keycloak:
-    host: localhost
-    port: 8090
-    realm: microservices
-
-spring:
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: http://${app.keycloak.host}:${app.keycloak.port}/realms/${app.keycloak.realm}
-
-eureka:
-  instance:
-    hostname: ${app.discovery.host}
-  client:
-    fetch-registry: true
-    register-with-eureka: true
-    serviceUrl:
-      defaultZone: http://${app.discovery.user}:${app.discovery.pass}@${app.discovery.host}:${app.discovery.port}/eureka/
 
 server:
-  port: 0
+  port: 8888
+
+spring:
+  profiles:
+    active: native
+  application:
+    name: config-service
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/shared
+  security:
+    user:
+      name: ${app.config.user}
+      password: ${app.config.pass}
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${app.discovery.user}:${app.discovery.pass}@${app.discovery.host}:${app.discovery.port}/eureka/
 
 ---
 spring:
@@ -35,12 +38,11 @@ spring:
       on-profile: docker
 
 app:
+  config:
+    user: ${CONFIG_USER}
+    pass: ${CONFIG_PASS}
   discovery:
     host: discovery-server
     port: 8761
     user: ${EUREKA_USER}
     pass: ${EUREKA_PASS}
-  keycloak:
-    host: keycloak
-    port: 8090
-    realm: microservices

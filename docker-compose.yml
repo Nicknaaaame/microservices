@@ -13,9 +13,9 @@ services:
     ports:
       - 8888:8888
 
-  eureka-service:
-    container_name: eureka-service
-    image: lapotkod/eureka-service:0.0.1
+  discovery-server:
+    container_name: discovery-server
+    image: lapotkod/discovery-server:0.0.1
     restart: on-failure
     environment:
       SPRING_PROFILES_ACTIVE: docker
