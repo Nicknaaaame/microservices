@@ -79,3 +79,26 @@ services:
       - config-service
       - discovery-server
       - keycloak
+
+  mongo:
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=user
+      - MONGO_INITDB_ROOT_PASSWORD=pass
+    restart: always
+
+  product-service:
+    container_name: product-service
+    image: lapotkod/product-service:0.0.1
+    restart: on-failure
+    environment:
+      SPRING_PROFILES_ACTIVE: docker,dev
+      CONFIG_USER: ${CONFIG_USER}
+      CONFIG_PASS: ${CONFIG_PASS}
+      EUREKA_USER: ${EUREKA_USER}
+      EUREKA_PASS: ${EUREKA_PASS}
+    depends_on:
+      - config-service
+      - discovery-server
+      - keycloak
+      - mongo

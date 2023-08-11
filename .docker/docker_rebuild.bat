@@ -17,6 +17,11 @@ cd .\api-gateway\
 docker build . -t lapotkod/api-gateway:0.0.1
 cd ..
 
+docker rmi -f lapotkod/product-service:0.0.1
+cd .\product-service\
+docker build . -t lapotkod/product-service:0.0.1
+cd ..
+
 
 cd .\.docker\
 

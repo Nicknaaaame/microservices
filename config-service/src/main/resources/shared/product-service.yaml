@@ -4,3 +4,14 @@ spring:
       database: product-service
       port: '27017'
       host: localhost
+
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+  data:
+    mongodb:
+      host: mongo
+      username: user
+      password: pass
