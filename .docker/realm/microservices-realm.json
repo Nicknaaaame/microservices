@@ -519,6 +519,8 @@
         }
       ],
       "realmRoles": [
+        "offline_access",
+        "uma_authorization",
         "ROLE_ADMIN",
         "PRODUCT_USER",
         "INVENTORY_USER",
