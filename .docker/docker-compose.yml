@@ -11,8 +11,10 @@ services:
       KC_DB_URL: jdbc:postgresql://host.docker.internal:5432/keycloak
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
+    expose:
+      - 8090
     ports:
-      - 8090:8080
+      - 8090:8090
     volumes:
       - ./realm/microservices-realm.json:/opt/keycloak/data/import/microservices-realm.json
     command: [ "start-dev", "--import-realm" ]
@@ -44,3 +46,20 @@ services:
       - 8761:8761
     depends_on:
       - config-service
+
+  api-gateway:
+    container_name: api-gateway
+    image: lapotkod/api-gateway:0.0.1
+    restart: on-failure
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      CONFIG_USER: ${CONFIG_USER}
+      CONFIG_PASS: ${CONFIG_PASS}
+      EUREKA_USER: ${EUREKA_USER}
+      EUREKA_PASS: ${EUREKA_PASS}
+    ports:
+      - 8080:8080
+    depends_on:
+      - config-service
+      - discovery-server
+      - keycloak
