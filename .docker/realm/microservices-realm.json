@@ -505,6 +505,27 @@
   "webAuthnPolicyPasswordlessCreateTimeout": 0,
   "webAuthnPolicyPasswordlessAvoidSameAuthenticatorRegister": false,
   "webAuthnPolicyPasswordlessAcceptableAaguids": [],
+  "users": [
+    {
+      "username": "admin",
+      "enabled": true,
+      "emailVerified": false,
+      "firstName": "System",
+      "lastName": "Administrator",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "admin"
+        }
+      ],
+      "realmRoles": [
+        "ROLE_ADMIN",
+        "PRODUCT_USER",
+        "INVENTORY_USER",
+        "ORDER_USER"
+      ]
+    }
+  ],
   "scopeMappings": [
     {
       "clientScope": "offline_access",
