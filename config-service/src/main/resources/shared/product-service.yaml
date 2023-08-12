@@ -13,5 +13,3 @@ spring:
   data:
     mongodb:
       host: mongo
-      username: user
-      password: pass

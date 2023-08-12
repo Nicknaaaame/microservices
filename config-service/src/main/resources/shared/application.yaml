@@ -42,5 +42,5 @@ app:
     pass: ${EUREKA_PASS}
   keycloak:
     host: keycloak
-    port: 8090
+    port: 8080
     realm: microservices

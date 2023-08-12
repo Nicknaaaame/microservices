@@ -10,7 +10,7 @@ server:
 
 spring:
   application:
-    name: api-gateway
+    name: product-service
   cloud:
     config:
       uri: http://${app.config.host}:${app.config.port}
