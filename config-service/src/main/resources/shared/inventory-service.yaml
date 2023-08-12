@@ -26,6 +26,6 @@ app:
   postgres:
     host: ms-postgres
     port: 5432
-    schema: postgres
-    user: postgres
-    pass: postgres
+    schema: inventory
+    user: inventory
+    pass: inventory

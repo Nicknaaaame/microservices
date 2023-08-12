@@ -12,6 +12,9 @@ services:
       INVENTORY_DB_NAME: inventory
       INVENTORY_DB_USER: inventory
       INVENTORY_DB_PASSWORD: inventory
+      ORDER_DB_NAME: orderdb
+      ORDER_DB_USER: orderuser
+      ORDER_DB_PASSWORD: orderpass
       PGTZ: Europe/Amsterdam
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U postgres" ]
@@ -95,6 +98,25 @@ services:
       EUREKA_PASS: ${EUREKA_PASS}
     ports:
       - 8082:8082
+    depends_on:
+      - config-service
+      - discovery-server
+      - keycloak
+      - api-gateway
+      - ms-postgres
+
+  order-service:
+    container_name: order-service
+    image: lapotkod/order-service:0.0.1
+    restart: on-failure
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      CONFIG_USER: ${CONFIG_USER}
+      CONFIG_PASS: ${CONFIG_PASS}
+      EUREKA_USER: ${EUREKA_USER}
+      EUREKA_PASS: ${EUREKA_PASS}
+    ports:
+      - 8083:8083
     depends_on:
       - config-service
       - discovery-server

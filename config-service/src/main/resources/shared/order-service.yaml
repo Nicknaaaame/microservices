@@ -3,13 +3,29 @@ app:
     host: localhost
     port: 5432
     schema: postgres
+    user: postgres
+    pass: postgres
 
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://${app.postgres.host}:${app.postgres.port}/${app.postgres.schema}
-    username: postgres
-    password: postgres
+    username: ${app.postgres.user}
+    password: ${app.postgres.pass}
   jpa:
     hibernate:
       ddl-auto: update
+
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+
+app:
+  postgres:
+    host: ms-postgres
+    port: 5432
+    schema: orderdb
+    user: orderuser
+    pass: orderpass
