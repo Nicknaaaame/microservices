@@ -94,7 +94,10 @@ services:
       CONFIG_PASS: ${CONFIG_PASS}
       EUREKA_USER: ${EUREKA_USER}
       EUREKA_PASS: ${EUREKA_PASS}
+    ports:
+      - 8081:8081
     depends_on:
+      - api-gateway
       - config-service
       - discovery-server
       - keycloak

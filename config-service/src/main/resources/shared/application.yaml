@@ -44,3 +44,23 @@ app:
     host: keycloak
     port: 8080
     realm: microservices
+eureka:
+  instance:
+    prefer-ip-address: true
+
+---
+spring:
+  config:
+    activate:
+      on-profile: docker-tmp
+
+app:
+  discovery:
+    host: host.docker.internal
+    port: 8761
+    user: ${EUREKA_USER}
+    pass: ${EUREKA_PASS}
+  keycloak:
+    host: keycloak
+    port: 8090
+    realm: microservices
