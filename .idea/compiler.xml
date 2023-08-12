@@ -12,7 +12,6 @@
         <module name="discovery-server" />
         <module name="config-service" />
         <module name="api-gateway" />
-        <module name="product-service" />
         <module name="order-service" />
       </profile>
     </annotationProcessing>

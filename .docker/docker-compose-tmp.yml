@@ -36,23 +36,3 @@ services:
     command: [ "start-dev", "--import-realm" ]
     depends_on:
       - ms_postgres
-
-  mongo:
-    image: mongo
-    restart: always
-
-  product-service:
-    container_name: product-service
-    image: lapotkod/product-service:0.0.1
-    restart: on-failure
-    environment:
-      SPRING_PROFILES_ACTIVE: docker-tmp,dev
-      CONFIG_USER: ${CONFIG_USER}
-      CONFIG_PASS: ${CONFIG_PASS}
-      EUREKA_USER: ${EUREKA_USER}
-      EUREKA_PASS: ${EUREKA_PASS}
-    ports:
-      - 8081:8081
-    depends_on:
-      - mongo
-      - keycloak

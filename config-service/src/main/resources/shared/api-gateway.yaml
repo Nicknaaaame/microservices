@@ -17,11 +17,6 @@ spring:
           predicates:
             - Path=/eureka/**
 
-        - id: product-service
-          uri: lb://product-service
-          predicates:
-            - Path=/api/product
-
         - id: order-service
           uri: lb://order-service
           predicates:
@@ -52,11 +47,6 @@ spring:
           uri: http://host.docker.internal:8761
           predicates:
             - Path=/eureka/**
-
-        - id: product-service
-          uri: lb://product-service
-          predicates:
-            - Path=/api/product
 
         - id: order-service
           uri: lb://order-service

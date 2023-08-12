@@ -46,15 +46,6 @@
   "roles": {
     "realm": [
       {
-        "id": "db4f0f13-6e64-45b6-acb1-a10de71703be",
-        "name": "PRODUCT_USER",
-        "description": "",
-        "composite": false,
-        "clientRole": false,
-        "containerId": "2da73e40-f25b-4c4a-8134-0e5d1159297f",
-        "attributes": {}
-      },
-      {
         "id": "7905e005-7a01-42f4-895e-d01f256f62b9",
         "name": "ROLE_ADMIN",
         "description": "",
@@ -522,7 +513,6 @@
         "offline_access",
         "uma_authorization",
         "ROLE_ADMIN",
-        "PRODUCT_USER",
         "INVENTORY_USER",
         "ORDER_USER"
       ]

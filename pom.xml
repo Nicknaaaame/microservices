@@ -20,7 +20,6 @@
         <module>discovery-server</module>
         <module>inventory-service</module>
         <module>order-service</module>
-        <module>product-service</module>
         <module>shared</module>
     </modules>
 
