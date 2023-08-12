@@ -1,0 +1,30 @@
+app:
+  config:
+    host: localhost
+    port: 8888
+    user: cfg_admin
+    pass: cfg_admin
+
+spring:
+  application:
+    name: inventory-service
+  cloud:
+    config:
+      uri: http://${app.config.host}:${app.config.port}
+      fail-fast: true
+      username: ${app.config.user}
+      password: ${app.config.pass}
+
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+
+app:
+  config:
+    host: config-service
+    port: 8888
+    user: ${CONFIG_USER}
+    pass: ${CONFIG_PASS}
+
