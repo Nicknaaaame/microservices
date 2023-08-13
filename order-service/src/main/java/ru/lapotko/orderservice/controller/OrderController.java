@@ -21,14 +21,13 @@ public class OrderController {
     private final OrderMapper orderMapper = new OrderMapper();
 
     @PostMapping
-    @PreAuthorize("hasAuthority(@Roles.ORDER_USER)")
-    public ResponseEntity<Void> placeOrder(@RequestBody OrderRequest orderRequest) {
-        orderService.placeOrder(orderMapper.map(orderRequest));
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public ResponseEntity<String> placeOrder(@RequestBody OrderRequest orderRequest) {
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(orderService.placeOrder(orderMapper.map(orderRequest)));
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority(@Roles.ORDER_USER)")
     public ResponseEntity<List<OrderResponse>> getOrders() {
         return ResponseEntity.ok(orderService.getOrders().stream()
                 .map(orderMapper::map)
