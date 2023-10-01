@@ -20,6 +20,6 @@ public final class JwtUtil {
      * Returns jwt with Bearer prefix
      * */
     public static String getAuthorizationHeader() {
-        return OAuth2AccessToken.TokenType.BEARER.getValue() + getJwt();
+        return "%s %s".formatted(OAuth2AccessToken.TokenType.BEARER.getValue(), getJwt());
     }
 }

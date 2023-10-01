@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.lapotko.inventoryservice.dto.InventoryResponse;
+import ru.lapotko.inventoryservice.model.Inventory;
 import ru.lapotko.inventoryservice.repository.InventoryRepository;
 
 import java.util.List;
@@ -21,12 +22,14 @@ public class InventoryService {
     @SneakyThrows
     public List<InventoryResponse> isInStock(List<String> skuCode) {
         log.info("Checking Inventory");
-        return inventoryRepository.findBySkuCodeIn(skuCode).stream()
-                .map(inventory ->
-                        InventoryResponse.builder()
-                                .skuCode(inventory.getSkuCode())
-                                .isInStock(inventory.getQuantity() > 0)
-                                .build()
-                ).toList();
+        List<Inventory> found = inventoryRepository.findBySkuCodeIn(skuCode);
+        return skuCode.stream()
+                .map(code -> InventoryResponse.builder()
+                        .skuCode(code)
+                        .isInStock(found.stream()
+                                .anyMatch(inventory ->
+                                        inventory.getSkuCode().equals(code) && inventory.getQuantity() > 0))
+                        .build())
+                .toList();
     }
 }

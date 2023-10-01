@@ -1,6 +1,6 @@
 version: '3.7'
 services:
-  ms_postgres:
+  ms-postgres:
     build: postgres
     restart: always
     environment:
@@ -9,6 +9,12 @@ services:
       KEYCLOAK_DB_NAME: keycloak
       KEYCLOAK_DB_USER: keycloak
       KEYCLOAK_DB_PASSWORD: keycloak
+      INVENTORY_DB_NAME: inventory
+      INVENTORY_DB_USER: inventory
+      INVENTORY_DB_PASSWORD: inventory
+      ORDER_DB_NAME: orderdb
+      ORDER_DB_USER: orderuser
+      ORDER_DB_PASSWORD: orderpass
       PGTZ: Europe/Amsterdam
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U postgres" ]
@@ -24,7 +30,7 @@ services:
       KC_DB: postgres
       KC_DB_USERNAME: keycloak
       KC_DB_PASSWORD: keycloak
-      KC_DB_URL: jdbc:postgresql://ms_postgres:5432/keycloak
+      KC_DB_URL: jdbc:postgresql://ms-postgres:5432/keycloak
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
     ports:
@@ -33,7 +39,7 @@ services:
       - ./realm/microservices-realm.json:/opt/keycloak/data/import/microservices-realm.json
     command: [ "start-dev", "--import-realm" ]
     depends_on:
-      - ms_postgres
+      - ms-postgres
 
   config-service:
     container_name: config-service
@@ -79,3 +85,41 @@ services:
       - config-service
       - discovery-server
       - keycloak
+        
+  inventory-service:
+    container_name: inventory-service
+    image: lapotkod/inventory-service:0.0.1
+    restart: on-failure
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      CONFIG_USER: ${CONFIG_USER}
+      CONFIG_PASS: ${CONFIG_PASS}
+      EUREKA_USER: ${EUREKA_USER}
+      EUREKA_PASS: ${EUREKA_PASS}
+    ports:
+      - 8082:8082
+    depends_on:
+      - config-service
+      - discovery-server
+      - keycloak
+      - api-gateway
+      - ms-postgres
+
+  order-service:
+    container_name: order-service
+    image: lapotkod/order-service:0.0.1
+    restart: on-failure
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      CONFIG_USER: ${CONFIG_USER}
+      CONFIG_PASS: ${CONFIG_PASS}
+      EUREKA_USER: ${EUREKA_USER}
+      EUREKA_PASS: ${EUREKA_PASS}
+    ports:
+      - 8083:8083
+    depends_on:
+      - config-service
+      - discovery-server
+      - keycloak
+      - api-gateway
+      - ms-postgres
